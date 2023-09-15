@@ -20,9 +20,9 @@ var port = normalizePort(process.env.PORT || '4000');
 
 app.get('/ip', (req, res) => {
     // res.set('Access-Control-Allow-Origin', 'http://localhost:'+4200);
-
+    var ip = req.ip
     var token = process.env.IP_INFO_KEY
-    var promise = "https://ipinfo.io/json?token=" + token
+    var promise = "https://ipinfo.io/" + ip + "/json?token=" + token
     // console.log(promise)
 
     fetch(promise).then(
@@ -41,6 +41,10 @@ app.get('/angular', (req, res) => {
     res.send('<h1>This project has been created with Node and Angular</h1>')
 })
 
+app.get('*', (req, res) => {
+  res.send('<h1>Nikhil Kulkarni has created this server</h1>')
+})
+
 // app.post('*', function(req, res, next) {
 //   if(getIP === null) {
 //     console.log('did not find ip address')
@@ -51,7 +55,7 @@ app.get('/angular', (req, res) => {
 
 // app.use('/angular', require(express.static('frontend')))
 
-app.use(express.static('frontend'))
+// app.use(express.static('frontend'))
 
 app.listen(port, () => {
     console.log('Node server is running @ http://localhost:4000')
