@@ -55,11 +55,11 @@ app.get('/contactMe', (req, res) => {
       transporter.sendMail(mailOptions, function(error, res) {
         if(error) {
           // console.log(error)
-          res.send(error)
+          res.send({status:error})
         }
         else {
           // console.log('Sent email!' + res.response)
-          res.send('Sent email!')
+          res.send({status:'Sent email!'})
         }
         
   })
