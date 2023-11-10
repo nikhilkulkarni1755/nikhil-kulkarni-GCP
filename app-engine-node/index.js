@@ -19,6 +19,7 @@ app.use(requestIp.mw())
 
 
 let normalizePort = require('normalize-port')
+const Mail = require('nodemailer/lib/mailer')
 
 var port = normalizePort(process.env.PORT || '4000');
 
@@ -26,7 +27,42 @@ var port = normalizePort(process.env.PORT || '4000');
 // const json = await request.json()
 
 app.get('/contactMe', (req, res) => {
+  // name, email and message are being sent via email
+
+  // req.query.email
   
+  const transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth: {
+      user:"nodejsserverstuff@gmail.com",
+      pass:process.env.SERVER_KEY
+    }
+  })
+
+  subject = 'Thanks for Contacting Nikhil, ' + req.query.name
+  maillist = [
+    req.query.email,
+    'nikhilkulkarni1755@gmail.com',
+  ]
+
+  const mailOptions = {
+        from:"nodejsserverstuff@gmail.com",
+        to: maillist,
+        subject:subject,
+        text:"Got your message (" + req.query.message + "). Will respond as soon as possible"
+      }
+    
+      transporter.sendMail(mailOptions, function(error, res) {
+        if(error) {
+          // console.log(error)
+          res.send(error)
+        }
+        else {
+          // console.log('Sent email!' + res.response)
+          res.send('Sent email!')
+        }
+        
+  })
 })
 
 // app.get('/sendConfirm', (req, res) => {
