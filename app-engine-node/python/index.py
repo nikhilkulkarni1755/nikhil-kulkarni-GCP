@@ -26,5 +26,5 @@ for k, v in hashset.items():
 for days in range(0, day):
     daysPast += 1
 
-print("We have {} days left in the year, {} weeks left!".format(daysPast, int((365 - daysPast)/7)))
+print("We have completed {} days in {}, {} weeks left!".format(daysPast, year, int((365 - daysPast)/7)))
 
