@@ -67,7 +67,7 @@ app.get('/contactMe', (req, res) => {
         from:"nodejsserverstuff@gmail.com",
         to: maillist,
         subject:subject,
-        text:"Got your message (" + req.query.message + "). Will respond as soon as possible"
+        text:"Got your message. Will respond as soon as possible\nMessage: " + req.query.message
       }
     
       transporter.sendMail(mailOptions, function(error, res) {
