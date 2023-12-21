@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer')
 // import requestIp from 
 let requestIp = require('request-ip')
 
+// const tf = require('@tensorflow/tfjs-node');
+
 const {spawn} = require('child_process');
 
 require("dotenv").config()
@@ -26,6 +28,10 @@ var port = normalizePort(process.env.PORT || '4000');
 
 // const request = await fetch("https://ipinfo.io/json?token="+ipKey)
 // const json = await request.json()
+
+app.get('/createDocs', (req, res) => {
+  
+})
 
 app.get('/daysLeft', (req, res) => {
   var dataToSend;
