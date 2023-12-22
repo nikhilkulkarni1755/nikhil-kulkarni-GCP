@@ -1,2 +1,2 @@
 # nikhil-kulkarni-GCP
-Personal Website hosted on GCP using NodeJS and Angular
+GCP server helping serve data for nsk1755.com using NodeJS and Express
