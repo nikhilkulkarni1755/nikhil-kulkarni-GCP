@@ -29,6 +29,10 @@ var port = normalizePort(process.env.PORT || '4000');
 // const request = await fetch("https://ipinfo.io/json?token="+ipKey)
 // const json = await request.json()
 
+app.get('/chess', (req, res) => {
+  
+})
+
 app.get('/createDocs', (req, res) => {
   
 })

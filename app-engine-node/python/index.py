@@ -17,8 +17,8 @@ numDaysInMonth[2] = 28
 # hashset[4, 6, 9, 11] = [30]
 # hashset[2,] = [28]
 
-today = date.today()
-# today = date(2024, 1, 1)
+# today = date.today()
+today = date(2023, 12, 20)
 year = today.year
 month = today.month
 day = today.day
