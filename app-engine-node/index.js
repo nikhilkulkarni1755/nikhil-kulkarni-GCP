@@ -1,6 +1,3 @@
-
-// const https = require("https")
-
 const nodemailer = require('nodemailer')
 // import requestIp from 
 let requestIp = require('request-ip')
@@ -26,9 +23,6 @@ const Mail = require('nodemailer/lib/mailer')
 
 var port = normalizePort(process.env.PORT || '4000');
 
-// const request = await fetch("https://ipinfo.io/json?token="+ipKey)
-// const json = await request.json()
-
 app.get('/chess', (req, res) => {
   
 })
@@ -39,26 +33,22 @@ app.get('/createDocs', (req, res) => {
 
 app.get('/daysLeft', (req, res) => {
   var dataToSend;
-  // spawn new child process to call the python script
+  
   const python = spawn('python3', ['python/index.py']);
-  // collect data from script
+
   python.stdout.on('data', function (data) {
     console.log('Pipe data from python script ...');
     dataToSend = data.toString();
   });
-  // in close event we are sure that stream from child process is closed
+  
   python.on('close', (code) => {
   console.log(`child process close all stdio with code ${code}`);
-  // send data to browser
+  
   res.send(dataToSend)
-  });
+  })
 })
 
 app.get('/contactMe', (req, res) => {
-  // name, email and message are being sent via email
-
-  // req.query.email
-  
   const transporter = nodemailer.createTransport({
     service:"gmail",
     auth: {
@@ -82,67 +72,28 @@ app.get('/contactMe', (req, res) => {
     
       transporter.sendMail(mailOptions, function(error, res) {
         if(error) {
-          // console.log(error)
           res.send({status:error})
         }
         else {
-          // console.log('Sent email!' + res.response)
           res.send({status:'Sent email!'})
         }
         
   })
 })
 
-// app.get('/sendConfirm', (req, res) => {
-//   let randomValue = Math.floor(Math.random() * (999999 - 100001 + 1) + 100001)
-//   let time = Math.floor(Date.now()/1000)
-//   const transporter = nodemailer.createTransport({
-//     service:"gmail",
-//     auth: {
-//       user:"nodejsserverstuff@gmail.com",
-//       pass:process.env.SERVER_KEY
-//     }
-//   })
-
-//   const mailOptions = {
-//     from:"nodejsserverstuff@gmail.com",
-//     to:"nikhilkulkarni1755@gmail.com",
-//     subject:"Email Confirmation: nsk1755.com",
-//     text:"Random Value: " + randomValue
-//   }
-
-//   transporter.sendMail(mailOptions, function(error, res) {
-//     if(error) {
-//       console.log(error)
-//     }
-//     else {
-//       console.log('Send email!' + res.response)
-//     }
-    
-//     })
-// })
-
-
 app.get('/weather', (req, res) => {
-  // console.log('trynna get the weather')
-  // console.log(req.query.city + req.query.state + req.query.country) 
-  // https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + weatherKey
+  
   var promise = 'https://api.openweathermap.org/data/2.5/weather?q='+ req.query.city + ',' + req.query.state + ',' + req.query.country + '&units=imperial&APPID=' + process.env.WEATHER_KEY
-  // console.log(promise)
+  
   fetch(promise).then(
     (response) => response.json()
   ).then(
     (jsonResponse) => {
-      // console.log(jsonResponse)
-      var weatherIcon = "https://openweathermap.org/img/w/" + jsonResponse.weather[0].icon + ".png";
-      var weather = jsonResponse.weather[0].description;
-      // console.log(weather)
-      var temperature = Math.ceil(jsonResponse.main.temp) + "\xB0 F";
-      // console.log(temperature)
-      var city = jsonResponse.name;
-      // console.log(city)
-      var country = jsonResponse.sys.country;
-      // console.log(country)
+      var weatherIcon = "https://openweathermap.org/img/w/" + jsonResponse.weather[0].icon + ".png"
+      var weather = jsonResponse.weather[0].description
+      var temperature = Math.ceil(jsonResponse.main.temp) + "\xB0 F"
+      var city = jsonResponse.name
+      var country = jsonResponse.sys.country
 
       res.send({icon: weatherIcon, weather: weather, temp: temperature, city: city, country: country})
     }
@@ -151,7 +102,7 @@ app.get('/weather', (req, res) => {
 
 app.get('/ip', (req, res) => {
     // NOT GOOD FOR TESTING
-    var ip = req.clientIp;
+    var ip = req.clientIp
 
     //FOR TESTING USE AN ACTUAL IP
     var token = process.env.IP_INFO_KEY
@@ -209,10 +160,6 @@ app.get('/angular', (req, res) => {
 app.get('*', (req, res) => {
   res.send('<h1>Nikhil Kulkarni has created this server</h1>')
 })
-
-// https.createServer(app).listen(port, () => {
-//   console.log('Node Server is running @ https://localhost:4000')
-// })
 
 app.listen(port, () => {
     console.log('Node server is running @ http://localhost:4000')
