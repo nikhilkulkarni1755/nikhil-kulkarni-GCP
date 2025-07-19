@@ -1,4 +1,6 @@
 .env
 old_server
+updated_server/.env
+updated_server/node_modules
 # app-engine-node/node_modules
 testGoogleDocs.js
